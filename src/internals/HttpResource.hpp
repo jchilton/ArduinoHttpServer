@@ -11,30 +11,28 @@
 
 #include <WString.h>
 
-namespace ArduinoHttpServer
-{
+#include "Arduino.h"
+
+namespace ArduinoHttpServer {
 
 //! The resource requested by a client.
-class HttpResource
-{
+class HttpResource {
+ public:
+  HttpResource(const String& resource);
+  HttpResource();
 
-public:
-    HttpResource(const String& resource);
-    HttpResource();
+  HttpResource& operator=(const HttpResource& other);
 
-    HttpResource& operator=(const HttpResource& other);
+  bool isValid();
+  String operator[](const unsigned int index) const;
+  const String& toString() const;
 
-    bool isValid();
-    String operator[](const unsigned int index) const;
-    const String& toString() const;
+ private:
+  static const char RESOURCE_SEPERATOR = '/';
 
-private:
-   static const char RESOURCE_SEPERATOR = '/';
-
-   String m_resource;
-
+  String m_resource;
 };
 
-}
+}  // namespace ArduinoHttpServer
 
-#endif // defined(__ArduinoHttpServer__HttpResource__)
+#endif  // defined(__ArduinoHttpServer__HttpResource__)
